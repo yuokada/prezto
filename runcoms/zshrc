@@ -21,6 +21,7 @@ export PATH="$HOME/.embulk/bin:$PATH"
 export PATH=$HOME/go/bin:$PATH
 
 alias ga="git add"
+alias gp="git pull"
 alias gc="git commit"
 alias gs="git status -sb"
 alias gd="git diff"
@@ -43,3 +44,22 @@ function peco-select-history() {
 zle -N peco-select-history
 bindkey '^r' peco-select-history
 source <(kubectl completion zsh)
+# source <(minikube completion zsh)
+
+# For nodenv
+# export PATH="$HOME/.nodenv/shims:$PATH"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/yuokada/.sdkman"
+[[ -s "/Users/yuokada/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/yuokada/.sdkman/bin/sdkman-init.sh"
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /Users/yuokada/.asdf/shims/terraform terraform
+
+# For asdf
+# . $(brew --prefix asdf)/asdf.sh
+fpath=(
+  $(brew --prefix asdf)/etc/bash_completion.d
+  $fpath
+)
+autoload -Uz compinit && compinit
