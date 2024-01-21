@@ -15,6 +15,51 @@ promptinit
 prompt sorin
 
 # Customize to your needs...
+# Get the current operating system
+os_name=$(uname -s)
+
+# Common settings for all operating systems
+echo "Common settings for all OS"
+
+# OS-specific settings using case statement
+case $os_name in
+    Darwin)
+        # macOS settings
+        echo "macOS settings"
+        # Add macOS-specific configurations here
+        # For asdf
+        . $(brew --prefix asdf)/libexec/asdf.sh
+        fpath=(
+          $(brew --prefix asdf)/etc/bash_completion.d
+          $fpath
+        )
+        autoload -Uz compinit && compinit
+
+        test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+        ;;
+    Linux)
+        # Linux settings
+        echo "Linux settings"
+        # Add Linux-specific configurations here
+        . "$HOME/.asdf/asdf.sh"
+        export PATH="$HOME/.asdf/bin:$PATH"
+        # append completions to fpath
+        fpath=(${ASDF_DIR}/completions $fpath)
+        # initialise completions with ZSH's compinit
+        autoload -Uz compinit && compinit
+        ;;
+    FreeBSD)
+        # FreeBSD settings
+        echo "FreeBSD settings"
+        # Add FreeBSD-specific configurations here
+        ;;
+    *)
+        # Default settings for other operating systems
+        echo "Default settings for other OS"
+        # Add default configurations here
+        ;;
+esac
+
 export PATH=$HOME/bin:$PATH
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 export PATH="$HOME/.embulk/bin:$PATH"
@@ -50,22 +95,8 @@ bindkey '^r' peco-select-history
 # source <(kubectl completion zsh)
 # source <(minikube completion zsh)
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-# export SDKMAN_DIR="/Users/yuokada/.sdkman"
-# [[ -s "/Users/yuokada/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/yuokada/.sdkman/bin/sdkman-init.sh"
-
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /Users/yuokada/.asdf/shims/terraform terraform
-
-# For asdf
-. $(brew --prefix asdf)/libexec/asdf.sh
-fpath=(
-  $(brew --prefix asdf)/etc/bash_completion.d
-  $fpath
-)
-autoload -Uz compinit && compinit
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # AWS CDK
 alias cdk1="npx aws-cdk@1.x"
