@@ -57,9 +57,11 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /Users/yuokada/.asdf/shims/terraform terraform
 
 # For asdf
-. $(brew --prefix asdf)/asdf.sh
-fpath=(
-  $(brew --prefix asdf)/etc/bash_completion.d
-  $fpath
-)
-autoload -Uz compinit && compinit
+if [ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]; then
+  . $(brew --prefix asdf)/libexec/asdf.sh
+  fpath=(
+    $(brew --prefix asdf)/etc/bash_completion.d
+    $fpath
+  )
+  autoload -Uz compinit && compinit
+fi
