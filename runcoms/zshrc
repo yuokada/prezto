@@ -61,7 +61,7 @@ case $os_name in
 esac
 
 export PATH=$HOME/bin:$PATH
-export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+# export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 export PATH="$HOME/.embulk/bin:$PATH"
 export PATH=$HOME/go/bin:$PATH
 
@@ -104,3 +104,5 @@ alias cdk="npx aws-cdk@2.x"
 
 # Poetry
 export PIPENV_VENV_IN_PROJECT=1
+
+. "$HOME/.local/bin/env"
